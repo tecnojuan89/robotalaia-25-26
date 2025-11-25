@@ -378,7 +378,8 @@
                 <h2>Puntuació</h2>
                 <div>
                     <div class="total-score" id="totalScore">0</div>
-                    <div class="perfection-grade" id="perfectionGrade">Grau de perfecció: 0%</div>
+                    <div class="perfection-grade" id="perfectionGradeBAT">Grau de perfecció BAT: 0%</div>
+                    <div class="perfection-grade" id="perfectionGradeESO">Grau de perfecció ESO: 0%</div>
                 </div>
             </div>
 
@@ -736,11 +737,17 @@
             totalScoreEl.textContent = total;
             totalScoreEl.className = 'total-score ' + (total < 0 ? 'negative' : '');
             
-            // Calculate perfection grade
-            const maxScore = 17600;
-            const percentage = Math.max(0, Math.round((total / maxScore) * 100));
-            const perfectionEl = document.getElementById('perfectionGrade');
-            perfectionEl.textContent = `Grau de perfecció: ${percentage}%`;
+            // Calculate perfection grades
+            const maxScoreBAT = 17600;
+            const maxScoreESO = 8800;
+            const percentageBAT = Math.max(0, Math.round((total / maxScoreBAT) * 100));
+            const percentageESO = Math.max(0, Math.round((total / maxScoreESO) * 100));
+            
+            const perfectionBATEl = document.getElementById('perfectionGradeBAT');
+            perfectionBATEl.textContent = `Grau de perfecció BAT: ${percentageBAT}%`;
+            
+            const perfectionESOEl = document.getElementById('perfectionGradeESO');
+            perfectionESOEl.textContent = `Grau de perfecció ESO: ${percentageESO}%`;
         }
 
         function resetScore() {
