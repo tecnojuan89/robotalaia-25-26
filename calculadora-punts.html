@@ -400,7 +400,38 @@
         .reset-score-btn {
             width: 100%;
             margin-top: 16px;
-        }            @media (max-width: 600px) {
+        }
+
+        .footer-section {
+            margin-top: 24px;
+        }
+
+        .home-box {
+            display: block;
+            background: linear-gradient(135deg, rgba(0, 128, 128, 0.9), rgba(0, 100, 100, 0.8));
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
+            border: 2px solid rgba(0, 128, 128, 0.5);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .home-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 128, 128, 0.4);
+        }
+
+        .home-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
             .main-title {
                 font-size: 24px;
             }
@@ -665,6 +696,13 @@
             </div>
 
             <button class="btn btn-secondary reset-score-btn" onclick="resetScore()">Reiniciar Puntuació</button>
+        </div>
+
+        <!-- Footer with back button -->
+        <div class="footer-section">
+            <a href="index.html" class="home-box">
+                <div class="home-label">Tornar a Inici</div>
+            </a>
         </div>
     </div>
 
