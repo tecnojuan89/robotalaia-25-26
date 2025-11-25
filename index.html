@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronòmetre Competició Robòtica</title>
+    <title>RoboTalaia 25-26</title>
     <style>
         :root {
             /* Turquoise blue, pastel orange, light beige palette */
@@ -65,806 +65,185 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 48px;
         }
 
         .main-title {
-            text-align: center;
-            font-size: 36px;
+            font-size: 56px;
             font-weight: 700;
             color: var(--color-primary);
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
-        .app-container {
-            max-width: 800px;
-            margin: 0 auto;
-            width: 100%;
+        .subtitle {
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.4;
         }
 
-        .timer-section {
-            background: var(--color-surface);
+        .logo-container {
+            margin: 32px 0;
+        }
+
+        .logo {
+            max-width: 300px;
+            height: auto;
             border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .timer-display {
-            font-size: 72px;
-            font-weight: 600;
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .card-link {
+            text-decoration: none;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .card-link:hover {
+            transform: translateY(-8px);
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.9), rgba(230, 120, 0, 0.8));
+            border-radius: 16px;
+            padding: 48px 32px;
             text-align: center;
-            color: var(--color-primary);
-            margin-bottom: 24px;
-            font-variant-numeric: tabular-nums;
-            letter-spacing: 4px;
-        }
-
-        .timer-display.warning {
-            color: var(--color-warning);
-        }
-
-        .timer-display.danger {
-            color: var(--color-error);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        .timer-controls {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--color-primary-hover);
-        }
-
-        .btn-secondary {
-            background: var(--color-secondary);
-            color: var(--color-text);
-        }
-
-        .btn-secondary:hover {
-            background: var(--color-secondary-hover);
-        }
-
-        .score-section {
-            background: var(--color-surface);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--color-border);
-        }
-
-        .score-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        h2 {
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .total-score {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        .total-score.negative {
-            color: var(--color-error);
-        }
-
-        .perfection-grade {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--color-turquoise);
-            text-align: right;
-            margin-top: 4px;
-        }
-
-        .dashboard {
+            box-shadow: 0 8px 24px rgba(255, 140, 0, 0.3);
+            border: 2px solid rgba(255, 140, 0, 0.5);
+            min-height: 200px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin-bottom: 24px;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        .score-box {
-            background: linear-gradient(135deg, rgba(255, 140, 0, 0.9), rgba(230, 120, 0, 0.8));
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
-            border: 2px solid rgba(255, 140, 0, 0.5);
+        .card:hover {
+            box-shadow: 0 12px 32px rgba(255, 140, 0, 0.4);
+            background: linear-gradient(135deg, rgba(255, 140, 0, 1), rgba(230, 120, 0, 0.9));
         }
 
-        .score-box-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .score-box-value {
-            font-size: 48px;
+        .card-title {
+            font-size: 24px;
             font-weight: 700;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .perfection-boxes {
-            display: flex;
-            gap: 12px;
-            justify-content: space-between;
-        }
-
-        .perfection-box {
-            flex: 1;
-            background: linear-gradient(135deg, rgba(0, 128, 128, 0.9), rgba(0, 100, 100, 0.8));
-            border-radius: 10px;
-            padding: 16px 12px;
-            text-align: center;
-            box-shadow: 0 3px 8px rgba(0, 128, 128, 0.3);
-            border: 2px solid rgba(0, 128, 128, 0.5);
-        }
-
-        .perfection-label {
-            font-size: 11px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 6px;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .perfection-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
-        .score-category {
-            margin-bottom: 24px;
-        }
-
-        .category-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--color-text);
-            border-bottom: 2px solid var(--color-border);
-            padding-bottom: 8px;
-        }
-
-        .score-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .score-item:last-child {
-            border-bottom: none;
-        }
-
-        .item-label {
-            flex: 1;
-            font-size: 14px;
-            color: var(--color-text-secondary);
-        }
-
-        .item-controls {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .counter-btn {
-            width: 32px;
-            height: 32px;
-            border: none;
-            border-radius: 6px;
-            background: var(--color-secondary);
-            color: var(--color-text);
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .counter-btn:hover {
-            background: var(--color-secondary-hover);
-        }
-
-        .counter-value {
-            min-width: 40px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .item-points {
-            min-width: 80px;
-            text-align: right;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .item-points.positive {
-            color: var(--color-success);
-        }
-
-        .item-points.negative {
-            color: var(--color-error);
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: 0.3s;
-            border-radius: 26px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: 0.3s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: var(--color-error);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(24px);
-        }
-
-        .penalty-status {
-            margin-left: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            min-width: 30px;
-        }
-
-        .error-message {
-            color: var(--color-error);
-            font-weight: 600;
-            font-size: 14px;
-            text-align: center;
-            margin-top: 8px;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        .reset-score-btn {
-            width: 100%;
-            margin-top: 16px;
-        }            @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .main-title {
-                font-size: 24px;
+                font-size: 36px;
             }
 
-            .timer-display {
-                font-size: 56px;
+            .subtitle {
+                font-size: 18px;
             }
 
-            h2 {
+            .logo {
+                max-width: 200px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 40px 24px;
+                min-height: 160px;
+            }
+
+            .card-title {
                 font-size: 20px;
             }
 
-            .total-score {
+            .card-icon {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
                 font-size: 28px;
             }
 
-            .item-label {
-                font-size: 13px;
+            .subtitle {
+                font-size: 16px;
             }
 
-            .perfection-boxes {
-                flex-direction: column;
-            }
-
-            .perfection-label {
-                font-size: 10px;
-            }
-
-            .perfection-value {
-                font-size: 20px;
+            .header-section {
+                margin-bottom: 32px;
             }
         }
     </style>
 </head>
 <body>
-    <h1 class="main-title">Comptador punts i cronòmetre RoboTalaia</h1>
-    <div class="app-container">
-        <!-- Timer Section -->
-        <div class="timer-section">
-            <div class="timer-display" id="timerDisplay">3:00</div>
-            <div class="timer-controls">
-                <button class="btn btn-primary" id="startBtn">Iniciar</button>
-                <button class="btn btn-secondary" id="pauseBtn">Pausa</button>
-                <button class="btn btn-secondary" id="resetBtn">Reiniciar</button>
+    <div class="main-container">
+        <div class="header-section">
+            <h1 class="main-title">RoboTalaia 25-26</h1>
+            <p class="subtitle">RoboTalaia, una competició de robòtica<br>compromesa amb la sostenibilitat.</p>
+            <div class="logo-container">
+                <img src="logo-robotalaia.png" alt="Logo RoboTalaia" class="logo">
             </div>
         </div>
 
-        <!-- Score Calculator Section -->
-        <div class="score-section">
-            <h2 style="margin-bottom: 16px;">Puntuació</h2>
-            
-            <div class="dashboard">
-                <div class="score-box">
-                    <div class="score-box-label">Punts Totals</div>
-                    <div class="score-box-value" id="totalScore">0</div>
+        <div class="cards-grid">
+            <a href="classificacio-3r-eso.html" class="card-link">
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h2 class="card-title">Classificació 3r d'ESO</h2>
                 </div>
-                
-                <div class="perfection-boxes">
-                    <div class="perfection-box">
-                        <div class="perfection-label">Perfecció BAT</div>
-                        <div class="perfection-value" id="perfectionBAT">0%</div>
-                    </div>
-                    <div class="perfection-box">
-                        <div class="perfection-label">Perfecció 4t</div>
-                        <div class="perfection-value" id="perfection4th">0%</div>
-                    </div>
-                    <div class="perfection-box">
-                        <div class="perfection-label">Perfecció 3r</div>
-                        <div class="perfection-value" id="perfection3rd">0%</div>
-                    </div>
-                </div>
-            </div>
+            </a>
 
-            <!-- Missió 1: Sostenibilitat i recollida selectiva -->
-            <div class="score-category">
-                <div class="category-title">Missió 1: Sostenibilitat i recollida selectiva</div>
-                <div class="error-message" id="waste-error">Residus excedits</div>
-                
-                <div class="score-item">
-                    <div class="item-label">Residus a la platja (0 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('beach', -1)">−</button>
-                        <span class="counter-value" id="beach-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('beach', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="beach-points">0</div>
+            <a href="classificacio-4t-eso.html" class="card-link">
+                <div class="card">
+                    <div class="card-icon">⚙️</div>
+                    <h2 class="card-title">Classificació 4t d'ESO</h2>
                 </div>
+            </a>
 
-                <div class="score-item">
-                    <div class="item-label">Residus al mar (-200 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('sea', -1)">−</button>
-                        <span class="counter-value" id="sea-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('sea', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="sea-points">0</div>
+            <a href="classificacio-1r-bat.html" class="card-link">
+                <div class="card">
+                    <div class="card-icon">🏆</div>
+                    <h2 class="card-title">Classificació 1r BAT</h2>
                 </div>
+            </a>
 
-                <div class="score-item">
-                    <div class="item-label">Residus al passeig (+100 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('walk', -1)">−</button>
-                        <span class="counter-value" id="walk-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('walk', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="walk-points">0</div>
+            <a href="calculadora-punts.html" class="card-link">
+                <div class="card">
+                    <div class="card-icon">🧮</div>
+                    <h2 class="card-title">Calculadora de punts</h2>
                 </div>
-
-                <div class="score-item">
-                    <div class="item-label">Residus en escombreria (+200 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('container', -1)">−</button>
-                        <span class="counter-value" id="container-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('container', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="container-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Residus classificats (+300 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('sorted', -1)">−</button>
-                        <span class="counter-value" id="sorted-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('sorted', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="sorted-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Residus classificats dins del contenidor (+600 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('sortedInContainer', -1)">−</button>
-                        <span class="counter-value" id="sortedInContainer-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('sortedInContainer', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="sortedInContainer-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Tocar para-sol (-300 pts)</div>
-                    <div class="item-controls">
-                        <label class="switch">
-                            <input type="checkbox" id="umbrella-check" onchange="togglePenalty('umbrella')">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="penalty-status" id="umbrella-status">No</span>
-                    </div>
-                    <div class="item-points negative" id="umbrella-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Tocar tovallola (-300 pts)</div>
-                    <div class="item-controls">
-                        <label class="switch">
-                            <input type="checkbox" id="towel-check" onchange="togglePenalty('towel')">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="penalty-status" id="towel-status">No</span>
-                    </div>
-                    <div class="item-points negative" id="towel-points">0</div>
-                </div>
-            </div>
-
-            <!-- Missió 2: Salvament de banyistes -->
-            <div class="score-category">
-                <div class="category-title">Missió 2: Salvament de banyistes</div>
-                <div class="error-message" id="bather-error">Banyistes excedits</div>
-                
-                <div class="score-item">
-                    <div class="item-label">Banyista al mar (0 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('batherSea', -1)">−</button>
-                        <span class="counter-value" id="batherSea-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('batherSea', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="batherSea-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Banyista fora del mar caigut (+400 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('rescued', -1)">−</button>
-                        <span class="counter-value" id="rescued-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('rescued', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="rescued-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Banyista fora del mar dret (+800 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('rescuedStanding', -1)">−</button>
-                        <span class="counter-value" id="rescuedStanding-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('rescuedStanding', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="rescuedStanding-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Banyista a zona socorrisme caigut (+800 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('lifeguard', -1)">−</button>
-                        <span class="counter-value" id="lifeguard-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('lifeguard', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="lifeguard-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Banyista a zona socorrisme dret (+1600 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('lifeguardStanding', -1)">−</button>
-                        <span class="counter-value" id="lifeguardStanding-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('lifeguardStanding', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="lifeguardStanding-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Banyista a la llitera caigut (+1000 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('stretcher', -1)">−</button>
-                        <span class="counter-value" id="stretcher-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('stretcher', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="stretcher-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Banyista a la llitera dret (+2000 pts)</div>
-                    <div class="item-controls">
-                        <button class="counter-btn" onclick="updateScore('stretcherStanding', -1)">−</button>
-                        <span class="counter-value" id="stretcherStanding-count">0</span>
-                        <button class="counter-btn" onclick="updateScore('stretcherStanding', 1)">+</button>
-                    </div>
-                    <div class="item-points positive" id="stretcherStanding-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Desplaçar posidònia (-400 pts)</div>
-                    <div class="item-controls">
-                        <label class="switch">
-                            <input type="checkbox" id="seagrass-check" onchange="togglePenalty('seagrass')">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="penalty-status" id="seagrass-status">No</span>
-                    </div>
-                    <div class="item-points negative" id="seagrass-points">0</div>
-                </div>
-
-                <div class="score-item">
-                    <div class="item-label">Tombar posidònia (-600 pts)</div>
-                    <div class="item-controls">
-                        <label class="switch">
-                            <input type="checkbox" id="seagrassFall-check" onchange="togglePenalty('seagrassFall')">
-                            <span class="slider"></span>
-                        </label>
-                        <span class="penalty-status" id="seagrassFall-status">No</span>
-                    </div>
-                    <div class="item-points negative" id="seagrassFall-points">0</div>
-                </div>
-            </div>
-
-            <button class="btn btn-secondary reset-score-btn" onclick="resetScore()">Reiniciar Puntuació</button>
+            </a>
         </div>
     </div>
-
-    <script>
-        // Timer functionality
-        let timeLeft = 180; // 3 minutes in seconds
-        let timerInterval = null;
-        let isRunning = false;
-
-        const timerDisplay = document.getElementById('timerDisplay');
-        const startBtn = document.getElementById('startBtn');
-        const pauseBtn = document.getElementById('pauseBtn');
-        const resetBtn = document.getElementById('resetBtn');
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-            // Change color based on time remaining
-            timerDisplay.classList.remove('warning', 'danger');
-            if (timeLeft <= 10) {
-                timerDisplay.classList.add('danger');
-            } else if (timeLeft <= 30) {
-                timerDisplay.classList.add('warning');
-            }
-        }
-
-        function startTimer() {
-            if (!isRunning && timeLeft > 0) {
-                isRunning = true;
-                startBtn.textContent = 'En marxa';
-                timerInterval = setInterval(() => {
-                    timeLeft--;
-                    updateTimerDisplay();
-                    
-                    if (timeLeft <= 0) {
-                        pauseTimer();
-                        alert('Temps acabat!');
-                    }
-                }, 1000);
-            }
-        }
-
-        function pauseTimer() {
-            isRunning = false;
-            startBtn.textContent = 'Continuar';
-            clearInterval(timerInterval);
-        }
-
-        function resetTimer() {
-            pauseTimer();
-            timeLeft = 180;
-            startBtn.textContent = 'Iniciar';
-            updateTimerDisplay();
-        }
-
-        startBtn.addEventListener('click', startTimer);
-        pauseBtn.addEventListener('click', pauseTimer);
-        resetBtn.addEventListener('click', resetTimer);
-
-        // Score calculator functionality
-        const scoreItems = {
-            beach: { value: 0, count: 0, category: 'waste' },
-            sea: { value: -200, count: 0, category: 'waste' },
-            walk: { value: 100, count: 0, category: 'waste' },
-            container: { value: 200, count: 0, category: 'waste' },
-            sorted: { value: 300, count: 0, category: 'waste' },
-            sortedInContainer: { value: 600, count: 0, category: 'waste' },
-            umbrella: { value: -300, count: 0, isPenalty: true },
-            towel: { value: -300, count: 0, isPenalty: true },
-            batherSea: { value: 0, count: 0, category: 'bather' },
-            rescued: { value: 400, count: 0, category: 'bather' },
-            rescuedStanding: { value: 800, count: 0, category: 'bather' },
-            lifeguard: { value: 800, count: 0, category: 'bather' },
-            lifeguardStanding: { value: 1600, count: 0, category: 'bather' },
-            stretcher: { value: 1000, count: 0, category: 'bather' },
-            stretcherStanding: { value: 2000, count: 0, category: 'bather' },
-            seagrass: { value: -400, count: 0, isPenalty: true },
-            seagrassFall: { value: -600, count: 0, isPenalty: true }
-        };
-
-        function getTotalWaste() {
-            return scoreItems.beach.count + scoreItems.sea.count + scoreItems.walk.count + 
-                   scoreItems.container.count + scoreItems.sorted.count + 
-                   scoreItems.sortedInContainer.count;
-        }
-
-        function getTotalBathers() {
-            return scoreItems.batherSea.count + scoreItems.rescued.count + scoreItems.rescuedStanding.count + 
-                   scoreItems.lifeguard.count + scoreItems.lifeguardStanding.count + 
-                   scoreItems.stretcher.count + scoreItems.stretcherStanding.count;
-        }
-
-        function togglePenalty(itemId) {
-            const checkbox = document.getElementById(`${itemId}-check`);
-            const statusEl = document.getElementById(`${itemId}-status`);
-            const pointsEl = document.getElementById(`${itemId}-points`);
-            
-            if (checkbox.checked) {
-                scoreItems[itemId].count = 1;
-                statusEl.textContent = 'Sí';
-                pointsEl.textContent = scoreItems[itemId].value;
-            } else {
-                scoreItems[itemId].count = 0;
-                statusEl.textContent = 'No';
-                pointsEl.textContent = '0';
-            }
-            
-            calculateTotal();
-        }
-
-        function updateScore(itemId, change) {
-            const newCount = Math.max(0, scoreItems[itemId].count + change);
-            
-            // Check limits
-            if (scoreItems[itemId].category === 'waste') {
-                const currentTotal = getTotalWaste();
-                const newTotal = currentTotal - scoreItems[itemId].count + newCount;
-                
-                if (newTotal > 16) {
-                    const errorEl = document.getElementById('waste-error');
-                    errorEl.classList.add('show');
-                    setTimeout(() => errorEl.classList.remove('show'), 2000);
-                    return;
-                }
-            } else if (scoreItems[itemId].category === 'bather') {
-                const currentTotal = getTotalBathers();
-                const newTotal = currentTotal - scoreItems[itemId].count + newCount;
-                
-                if (newTotal > 4) {
-                    const errorEl = document.getElementById('bather-error');
-                    errorEl.classList.add('show');
-                    setTimeout(() => errorEl.classList.remove('show'), 2000);
-                    return;
-                }
-            }
-            
-            scoreItems[itemId].count = newCount;
-            
-            const countEl = document.getElementById(`${itemId}-count`);
-            const pointsEl = document.getElementById(`${itemId}-points`);
-            
-            countEl.textContent = scoreItems[itemId].count;
-            
-            let points = scoreItems[itemId].value * scoreItems[itemId].count;
-            pointsEl.textContent = points >= 0 ? `+${points}` : points;
-            
-            calculateTotal();
-        }
-
-        function calculateTotal() {
-            let total = 0;
-            
-            // Calculate all scores (no special standing multiplier logic needed)
-            for (let key in scoreItems) {
-                total += scoreItems[key].value * scoreItems[key].count;
-            }
-            
-            const totalScoreEl = document.getElementById('totalScore');
-            totalScoreEl.textContent = total;
-            
-            // Calculate perfection grades
-            const maxScoreBAT = 17600;
-            const maxScore4th = 12800;
-            const maxScore3rd = 8800;
-            
-            const percentageBAT = Math.max(0, Math.round((total / maxScoreBAT) * 100));
-            const percentage4th = Math.max(0, Math.round((total / maxScore4th) * 100));
-            const percentage3rd = Math.max(0, Math.round((total / maxScore3rd) * 100));
-            
-            document.getElementById('perfectionBAT').textContent = `${percentageBAT}%`;
-            document.getElementById('perfection4th').textContent = `${percentage4th}%`;
-            document.getElementById('perfection3rd').textContent = `${percentage3rd}%`;
-        }
-
-        function resetScore() {
-            for (let key in scoreItems) {
-                scoreItems[key].count = 0;
-                
-                if (scoreItems[key].isPenalty) {
-                    document.getElementById(`${key}-check`).checked = false;
-                    document.getElementById(`${key}-status`).textContent = 'No';
-                    document.getElementById(`${key}-points`).textContent = '0';
-                } else {
-                    document.getElementById(`${key}-count`).textContent = '0';
-                    document.getElementById(`${key}-points`).textContent = '0';
-                }
-            }
-            
-            // Hide error messages
-            document.getElementById('waste-error').classList.remove('show');
-            document.getElementById('bather-error').classList.remove('show');
-            
-            calculateTotal();
-        }
-
-        // Initialize display
-        updateTimerDisplay();
-        calculateTotal();
-    </script>
 </body>
 </html>
